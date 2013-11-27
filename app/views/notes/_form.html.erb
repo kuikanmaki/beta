@@ -1,0 +1,41 @@
+<%= form_for(@note) do |f| %>
+  <% if @note.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@note.errors.count, "error") %> prohibited this note from being saved:</h2>
+
+      <ul>
+      <% @note.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="row">
+  <div class="col-md-9">
+
+<form action="save.php" method="get">
+    <div class="field">
+    Title<br><br> <%= text_field_tag(:title) %>
+  </div>
+  <textarea class="textarea" id="content" name="content" placeholder="Enter text ..." style="min-height:400px;"></textarea>
+  <input type="hidden" id="parent" name="parent" value=<%= params[:id] %> />
+  <input type="submit" class="btn btn-primary" />
+</form> 
+
+<script type="text/javascript">
+  $('#content').wysihtml5({
+  "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
+  "emphasis": true, //Italics, bold, etc. Default true
+  "lists": false, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+  "html": false, //Button which allows you to edit the generated HTML. Default false
+  "link": true, //Button to insert a link. Default true
+  "image": false, //Button to insert an image. Default true,
+  "color": false //Button to change color of font  
+});
+</script>
+
+  </div>
+ </div>
+
+<% end %>

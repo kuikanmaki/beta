@@ -1,0 +1,27 @@
+<%= div_for(message, :class => (message.is_unread?(@user) ? 'unread' : '')) do %>
+  <div class="media">
+    <div class="pull-left">
+      <%= link_to image_tag(message.sender.avatar.url(:thumb),
+                            :size => "30x30",
+                            :title => message.sender.name,
+                            :alt => message.sender.name),
+                   message.sender %>
+
+    </div>
+
+    <div class="media-heading name">
+      <div class="name">
+      <%= link_to message.sender.name, message.sender %>
+      </div>
+      <div class="date">
+        <%= time_ago_in_words(message.updated_at) %> ago
+      </div>
+    </div>
+
+  <div class="media-body">        
+    <div class="word-break pre-message">
+      <%= raw(message.body) %>
+    </div>
+  </div>
+</div>
+<% end %>

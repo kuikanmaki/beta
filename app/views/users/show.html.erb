@@ -1,0 +1,59 @@
+<% provide(:title, @user.name) %>
+
+<div class="container-full" style="background: url('../assets/thames.jpg');background-size:100%;background-repeat:no-repeat;background-position:center;;height:240px;"></div>   
+
+  <div class="container">
+    <div class="col-md-12" style="padding-top:20px;">
+      <div class="teacher-profile-bg">
+        <table cellpadding="10">
+          <tr>
+            <td>
+              <% if(@user == current_user) %>
+                <%= link_to (image_tag @user.avatar.url(:medium), :size => "140x140", class: "avatar-nav"), edit_user_path(:id => @user.id, :type => "image") %>
+              <% else %>
+                <%= image_tag @user.avatar.url(:medium), :size => "140x140", class: "avatar-nav" %>
+              <% end %>  
+            </td>
+            <td>
+              <h3><%= @user.name %></h3>
+              <%= @user.description %>
+              <% if(@user == current_user) %>
+                ( <%= link_to "Edit", edit_user_path(:id => @user.id, :type => "description") %> )
+              <% end %>   
+              <% if @user.interests.any? %>
+
+                  <table style="margin-top:20px;margin-bottom:20px;">
+                    <tr>
+                    <% @interests.each do |interest| %> 
+                      <td> <%= link_to interest.name, "../pages/#{interest.id}" %> </td>
+                    </tr>
+                    <% end %>
+                  </table>
+
+                <% end %>
+
+                <% unless(@user == current_user) %>
+                  <br><br>
+                  <%= link_to "Send Message", new_message_path(:id => @user.id), :class => "btn btn-large btn-primary" %><br><br> 
+                  <%= link_to "Video Call", "../party/1", :class => "btn btn-large btn-primary" %>   
+                <% end %>                      
+            </td>
+          </tr>
+        </table>    
+      </div> 
+
+<div class="row">
+  <div class="col-md-8" style="padding-top:20px;">
+  <br><br>
+  <h3>Activity Feed</h3>
+
+  <% @activities.each do |activity| %>
+    <div class="activity">
+    <%= link_to activity.owner.name, activity.owner if activity.owner %>
+      <%= render_activity activity %>
+    </div> 
+  <% end %>
+  </div>
+</div> 
+
+</div> 

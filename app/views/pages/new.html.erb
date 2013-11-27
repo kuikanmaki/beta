@@ -1,0 +1,16 @@
+<div class="container">
+	<% if @status == "relatedpage" %>   
+	   <h3>Add Related Page</h3>
+	 <% elsif @status == "subpage" %>  
+	   <h3>Add Subpage</h3>
+	  <% else %> 
+	   <h3>Add Page</h3>
+	 <% end %>
+
+	<% if current_user.present? %>
+	  <%= render 'form' %>
+	<% else %>
+	  <p>You have to be signed in to add pages.</p><br><br>  
+	  <%= link_to "Sign in", signin_path %>
+	<% end %>
+</div>

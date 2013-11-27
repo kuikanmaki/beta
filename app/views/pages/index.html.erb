@@ -1,0 +1,27 @@
+<div class="container">
+	<div class="row">
+	  <div class="col-md-12">
+
+	    <%= image_tag "note.png", :size => "60x60" %>
+
+		<h4>Main Index</h4>
+
+		  <hr>
+		  <% if current_user.present? %>
+		    <div class="btn-group">
+		      <%= link_to "Add Page", new_page_path, :class => "btn btn-xs btn-default" %>
+		    </div><br><br>
+		  <% end %>
+
+		<ul class="list-group">
+		<% @pages.each do |page| %>
+
+		  <li class="list-group-item"><span class="glyphicon icon-chevron-right"></span> <%= link_to page.name, page %></li>
+
+		  <% end %>
+		</ul>
+
+		<br />
+	 </div>
+	</div>  
+</div> 

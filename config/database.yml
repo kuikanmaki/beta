@@ -1,0 +1,39 @@
+# SQLite version 3.x
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem 'sqlite3'
+development:
+  adapter: postgresql
+  encoding: utf-8
+  database: project_development
+  #database: db/development.sqlite3
+  pool: 5
+  timeout: 5000
+  host: localhost
+  username: jarikuikanmaki
+  password: noteacademy
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test: &test
+  adapter: postgresql
+  encoding: unicode
+  database: project_test
+  pool: 5
+  timeout: 5000
+  username: jarikuikanmaki
+  password: noteacademy
+  host: localhost
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: project_production
+  username: noteacademy
+  pool: 5
+  timeout: 5000
+
+cucumber:
+  <<: *test

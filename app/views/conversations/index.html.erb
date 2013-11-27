@@ -1,0 +1,12 @@
+<div class="container">
+	<div class="conversations">
+		<h4>Inbox</h4>
+		<%= current_user.name %>
+		<br><hr>
+	  <% if @conversations.present? %>	
+	  <%= render @conversations %>
+	  <% else %>
+	  <p>Can't seem to find the conversations</p>
+	  <% end %>
+	</div>
+</div>

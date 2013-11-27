@@ -1,0 +1,9 @@
+<div class="container">
+	<h1>Editing note</h1>
+
+	<% if current_user.present? %>
+	  <%= render 'form' %>
+	<% else %>
+	  <p>You have to be signed in to edit notes.</p>  
+	<% end %>
+</div>

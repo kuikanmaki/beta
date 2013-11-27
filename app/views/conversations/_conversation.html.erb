@@ -1,0 +1,38 @@
+<div class="container">
+
+  <%= div_for(conversation, :class =>"#{ 'unread ' if conversation.is_unread?(@user) }") do %>
+
+  <div class="row">
+    <div class="col-md-1">
+      
+      <% conversation.recipients.each do |recipient| %>
+       <%= link_to image_tag(recipient.avatar.url(:thumb),
+                              :size => "50x50",
+                              :alt => recipient.name), recipient if recipient.id != current_user.id %>
+      <% end %>
+    </div>
+
+    <div class="col-md-2">
+
+      <header>
+            <% conversation.recipients.each do |recipient| %>
+
+        <h5>
+          <%= recipient.name if recipient.id != current_user.id %>
+        </h5>
+            <% end %>
+
+          <%= time_ago_in_words(conversation.updated_at) %> ago
+      </header>
+        </div> 
+
+      <div class="col-md-9" style="margin-top:10px;">
+        <%= link_to(raw(truncate(strip_tags(conversation.last_message.body), :length => 200)), conversation_path(conversation.id,:box => @box,:page => params[:page])) %>
+      </div>
+
+    </div>
+    <hr>
+
+  <% end %>
+
+</div>

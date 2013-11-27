@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row">
+    <div class="col-md-9">
+
+    <% if current_user.present? %>
+
+       <% if params[:type] == "definition" %>
+        <h3>Add Definition (<%= @page.name %>)</h3>
+        <div class="alert alert-info">
+        <h6><span class="glyphicon icon-info-sign"></span> Define <%= @page.name %> in one short sentence.
+        </h6>
+        </div>
+        <%= render 'adddefinition' %>
+       <% elsif params[:type] == "image" %>
+        <h3>Upload Image</h3>
+        <%= render 'addimage' %>
+        <% elsif params[:type] == "cover" %>
+        <h3>Upload Cover Image</h3>
+        <%= render 'addcover' %>
+        <% else %>
+        <h3>Edit</h3>
+        <h4>Add Definition (<%= @page.name %>)</h4>
+        <%= render 'adddefinition' %>
+      <% end %>
+
+    <% end %>
+
+     </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+  <div class="row">
+    <div class="col-md-7">
+      <div class="notes content">
+        
+
+      <% if note.title.present? %>
+        <h4 style="padding-bottom:2px;"><%= link_to note.title, note %></h4>
+      <% end %>
+          <% if note.content.length > 1200 %>
+            <p><%= raw(truncate(note.content, length: 1200)) %>
+            <u><%= link_to "more", note %></u></p>
+          <% else %>
+            <p><%= raw(note.content) %></p>
+          <% end %>
+            <span class="timestamp"><%= link_to (note.user.name), note.user %>, </span>  
+            <span class="timestamp"><%= time_ago_in_words(note.created_at) %> ago</span>
+            <span class="timestamp"><%= link_to (note.page.name), note.page %></span>
+            <% if current_user?(note.user) %>
+              <%= link_to "delete", note, method: :delete,
+                                         data: { confirm: 'You sure?' },
+                                         title: note.content %>
+            <% end %>   
+
+      </div>
+    </div>
+
+    <% if note.user.present? %>
+
+    <div class="col-md-3">
+      <div class="notesprofile">
+        <table cellpadding="5">
+        <tr>
+        <td>
+        <%= link_to (image_tag note.user.avatar.url(:thumb), :size => "40x40", class: "avatar-nav"), note.user %>
+
+
+        </td>
+        <td>
+ <%= link_to (note.user.name), note.user %>
+        <br>
+        <span class="glyphicon icon-thumbs-up"></span> <%= note.votes %>
+        <% if current_user.present? %>
+        <%= link_to "Upvote", upvote_note_url(note), :method => :post %>  
+        <% end %>
+
+
+        </td>
+        </tr>
+        </table>
+       
+        </div>    
+      </div>   
+    <% end %>   
+ 
+
+    </div>    

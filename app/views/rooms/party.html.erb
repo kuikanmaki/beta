@@ -1,0 +1,65 @@
+
+<% javascript 'TB.min.js' %>
+
+<div class="container">
+  <div class="row">
+    <div class="video-chat-bg">
+      <div class="col-md-8" id="videobox">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="video-chat-bg">
+      <div class="col-md-8" id="videobox2">
+      </div>
+    </div> 
+  </div> 
+</div>
+
+
+<script type="text/javascript">
+
+  var apiKey    = 44292782;
+  var sessionId = "<%= @room.sessionId %>";
+  var token     = "<%= @tok_token %>";
+
+  function sessionConnectedHandler (event) {
+     session.publish( publisher );
+     subscribeToStreams(event.streams);
+  }
+  function subscribeToStreams(streams) {
+    for (var i = 0; i < streams.length; i++) {
+        var stream = streams[i];
+        if (stream.connection.connectionId 
+               != session.connection.connectionId) {
+            session.subscribe(stream, 'videobox', {width:800, height:600});
+        }
+    }
+  }
+  function streamCreatedHandler(event) {
+    subscribeToStreams(event.streams);
+  }
+ 
+ function streamDestroyedHandler(event) {
+    for (var i = 0; i < event.streams.length; i++) {
+        var stream = event.streams[i];
+        if (stream.connection == session.connection) {
+             alert("Publisher stopped streaming. Reason: "
+                    + event.reason)
+        }
+    }
+}
+
+  var publisher = TB.initPublisher(apiKey, 'videobox2',
+                                 {width:800, height:600});
+  var session   = TB.initSession(sessionId);
+ 
+  session.addEventListener("sessionConnected", sessionConnectedHandler); 
+  session.addEventListener("streamCreated", streamCreatedHandler);
+  session.addEventListener('streamDestroyed', streamDestroyedHandler);
+  session.connect(apiKey, token);
+
+  TB.addEventListener('exception', exceptionHandler);
+
+</script>

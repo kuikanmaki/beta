@@ -1,0 +1,7 @@
+updated book
+
+<% if activity.trackable %> 
+  <%= link_to activity.trackable.book.name, activity.trackable.book %>
+<% else %>
+  which has since been removed
+<% end %>  

@@ -1,0 +1,32 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <div class="row">
+    <div class="col-md-12">
+    		<h3><%= @book.name %></h3><hr>
+    		<p>By <%= @book.author %></p>
+      </div>
+    </div>
+
+  <div class="row">
+    <div class="col-md-9">
+    	<div class="bookholder" style="height:200px;">
+    		<h5>No Reviews Yet</h5>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+    	<div class="bookholder">
+        <span class="glyphicon icon-book"></span>
+      	 <% if @pages.any? %>  
+      	    <p><% @pages.each do |page| %>
+      	    <%= link_to page.name, page %></p>
+      	    <% end %>
+      	  <% else %> 
+      	     <p> -- </p>  
+      	  <% end %>
+    	  <hr><p><b>Link</b> <%= link_to 'link here', @book.link %></p>
+      </div>
+    </div>
+  </div>
+</div>

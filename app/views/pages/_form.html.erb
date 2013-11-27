@@ -1,0 +1,47 @@
+<%= form_for(@page) do |f| %>
+  <% if @page.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@page.errors.count, "error") %> prohibited this page from being saved:</h2>
+
+      <ul>
+      <% @page.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ <% if @status == "relatedpage" %>  
+ 
+   <div class="alert alert-info">
+     <%= image_tag "relatedpageicon.gif" %> 
+   </div>
+
+  <hr>
+
+ <% elsif @status == "subpage" %>  
+
+      <div class="alert alert-info">
+        <%= image_tag "subpageicon.gif" %> 
+      </div>
+    <hr>
+
+ <% else %>
+
+      <div class="alert alert-info">
+        <%= image_tag "newpageicon.gif" %>
+      </div>
+    <hr>
+
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+    <%= hidden_field_tag 'parent', params[:id] %>
+    <%= hidden_field_tag 'status', params[:status] %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

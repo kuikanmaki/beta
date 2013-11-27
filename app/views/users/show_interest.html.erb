@@ -1,0 +1,19 @@
+<h5><%= @page.name %></h5>
+
+<p><span class="glyphicon icon-arrow-right"></span> <%= link_to "Page", page_path(@page) %></p><hr>
+
+<% if @notes.any? %>
+  <ol class="notes">
+    <%= render @notes %>
+  </ol>
+    <%= will_paginate @notes %>
+<% else %>
+  <div>
+    <form action="save.php" method="get">
+  <textarea class="textarea" id="content" name="content" style="min-height:200px;"></textarea>
+  <input type="hidden" id="parent" name="parent" value=<%= params[:id] %> />
+  <input type="submit" class="btn btn-small btn-link" />
+</form> 
+
+  </div>
+<% end %>
